@@ -10,7 +10,7 @@ const Notes = () => {
       <h1 className="text-black font-bold text-2xl">Your Notes</h1>
       <div className="flex flex-wrap">
         {notes.map((note) => {
-          return <NoteItem note={note} />;
+          return <NoteItem key={note.id} note={note} />;
         })}
       </div>
     </div>
