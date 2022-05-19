@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import noteContext from "../context/notes/noteContext";
 
 const NoteItem = (props) => {
-  const { note } = props;
+  const context = useContext(noteContext);
+  const { deleteNote } = context;
+  const { note, updateNote } = props;
   return (
     <div>
       <div className="bg-PaleGoldenrod w-60 h-72 mr-8 mt-8 mb-8 static rounded-lg ">
@@ -9,8 +12,18 @@ const NoteItem = (props) => {
           <div className="flex m-4 justify-between items-center">
             <h1 className=" text-2xl font-bold">{note.title}</h1>
             <div className="space-x-3">
-              <i className="fa-solid fa-file-pen cursor-pointer hover:text-teal-400"></i>
-              <i className="fa-solid fa-delete-left cursor-pointer hover:text-teal-400"></i>
+              <i
+                className="fa-solid fa-file-pen cursor-pointer hover:text-teal-400"
+                onClick={() => {
+                  updateNote(note);
+                }}
+              ></i>
+              <i
+                className="fa-solid fa-delete-left cursor-pointer hover:text-teal-400"
+                onClick={() => {
+                  deleteNote(note._id);
+                }}
+              ></i>
             </div>
           </div>
 
