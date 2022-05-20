@@ -1,11 +1,11 @@
-import AddNote from "./AddNote";
 import Notes from "./Notes";
 
-const Home = () => {
+const Home = (props) => {
+  const { showAlert } = props;
   return (
     <div>
       <div className="container mx-auto sm:px-4">
-        <Notes />
+        <Notes showAlert={showAlert} />
       </div>
     </div>
   );

@@ -60,6 +60,33 @@ const Navbar = () => {
               placeholder="Search..."
             />
           </div>
+
+          {!localStorage.getItem("token") ? (
+            <div>
+              <Link
+                to="/sign-in"
+                className="text-white bg-blue-600 rounded-sm w-auto p-2 mx-2 hover:bg-blue-400 text-sm"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/sign-up"
+                className="text-white bg-teal-600 rounded-sm w-auto p-2 mx-2 hover:bg-teal-400 text-sm"
+              >
+                Sign Up
+              </Link>
+            </div>
+          ) : (
+            <Link
+              to="/sign-in"
+              onClick={() => {
+                localStorage.removeItem("token");
+              }}
+              className="text-white bg-rose-600 rounded-md w-auto p-2 mx-2 hover:bg-teal-400 text-sm font-semibold"
+            >
+              Logout
+            </Link>
+          )}
           <button
             data-collapse-toggle="mobile-menu-3"
             type="button"

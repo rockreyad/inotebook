@@ -1,17 +1,9 @@
-import { useState } from "react";
+import React from 'react'
 
-const Modal = ({ title, actionButtonName, setModalOn, setChoice, note }) => {
-  const [copyNote, setNote] = useState({
-    title: "",
-    description: "",
-    tag: "",
-  });
- 
+const Modal = () => {
   return (
-    <div>
+    <div>Modal</div>
+  )
+}
 
-    </div>
-  );
-};
-
-export default Modal;
+export default Modal

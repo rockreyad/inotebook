@@ -22,6 +22,11 @@ const NoteItem = (props) => {
                 className="fa-solid fa-delete-left cursor-pointer hover:text-teal-400"
                 onClick={() => {
                   deleteNote(note._id);
+                  props.showAlert(
+                    "Note has been Deleted Successfully",
+                    "Success",
+                    "teal"
+                  );
                 }}
               ></i>
             </div>

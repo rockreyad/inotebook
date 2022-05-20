@@ -1,10 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import NoteContext from "./noteContext";
 
 const NoteState = (props) => {
   const host = "http://localhost:5000";
-  const authToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI3ZWQ3MzViMTA3NGZjN2RmZjViM2VjIiwiZW1haWwiOiJyZXlhZGhhc2FuQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NTI0Nzk3OTd9.03FcBuFA-BTqWI7w8jq_AAdgW0ObqRgre1MWLqTSOv8";
+  const authToken = localStorage.getItem("token");
   const notesInitial = [];
 
   const [notes, setNotes] = useState(notesInitial);
@@ -22,7 +21,6 @@ const NoteState = (props) => {
     });
 
     const json = await response.json();
-    console.log(json);
 
     setNotes(json);
   };
@@ -38,12 +36,8 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    console.log("Adding a new Note");
-    const note = {
-      id: "",
-      title: title,
-      description: description,
-    };
+
+    const note = await response.json();
     setNotes(notes.concat(note));
   };
 
@@ -52,23 +46,29 @@ const NoteState = (props) => {
     //TODO: api call
 
     const response = await fetch(`${host}/api/notes/update_note/${id}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "auth-token": authToken,
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    const json = response.json();
+    const json = await response.json();
+    console.log(json);
+    let newNotes = JSON.parse(JSON.stringify(notes));
+
     //TODO:Logic to Edit
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
-      if (element.id === id) {
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
+      if (element._id === id) {
         element.title = title;
         element.description = description;
         element.tag = tag;
+        break;
       }
     }
+
+    setNotes(newNotes);
   };
 
   //Delete a Note
